@@ -26,12 +26,12 @@ Authorization: <token>
 - `<token>` ist der vom System vergebene API-Zugriffstoken.  
 - Zusätzlich muss in der URL der **Key** übergeben werden:
   ```
-  ?key=<key>
+  ?api_key=<api_key>
   ```
 
 Beispiel für eine vollständige Anfrage:
 ```
-GET https://muenchen.wahl.software/wm/papervote-api/ping?key=abc123
+GET https://muenchen.wahl.software/wm/papervote-api/ping?api_key=abc123
 ```
 
 ---
@@ -42,7 +42,7 @@ GET https://muenchen.wahl.software/wm/papervote-api/ping?key=abc123
 
 **URL:**
 ```
-GET https://muenchen.wahl.software/wm/papervote-api/ping?key=<key>
+GET https://muenchen.wahl.software/wm/papervote-api/ping?api_key=<api_key>
 ```
 
 **Beschreibung:**
@@ -60,7 +60,7 @@ GET https://muenchen.wahl.software/wm/papervote-api/ping?key=<key>
 
 **cURL-Beispiel:**
 ```bash
-curl -X GET "https://muenchen.wahl.software/wm/papervote-api/ping?key=abc123"      -H "Authorization: Bearer YOUR_AUTH_TOKEN"      -H "Accept: application/json"
+curl -X GET "https://muenchen.wahl.software/wm/papervote-api/ping?api_key=abc123"      -H "Authorization: Bearer YOUR_AUTH_TOKEN"      -H "Accept: application/json"
 ```
 
 Wenn `success: true` zurückgegeben wird, ist der Benutzer gültig angemeldet.
@@ -71,7 +71,7 @@ Wenn `success: true` zurückgegeben wird, ist der Benutzer gültig angemeldet.
 
 **URL:**
 ```
-GET https://muenchen.wahl.software/wm/papervote-api/info?key=<key>
+GET https://muenchen.wahl.software/wm/papervote-api/info?api_key=<api_key>
 ```
 
 **Beschreibung:**
@@ -100,7 +100,7 @@ Liefert detaillierte Informationen über den angemeldeten Benutzer und seine im 
 
 **cURL-Beispiel:**
 ```bash
-curl -X GET "https://muenchen.wahl.software/wm/papervote-api/info?key=abc123"      -H "Authorization: Bearer YOUR_AUTH_TOKEN"      -H "Accept: application/json"
+curl -X GET "https://muenchen.wahl.software/wm/papervote-api/info?api_key=abc123"      -H "Authorization: Bearer YOUR_AUTH_TOKEN"      -H "Accept: application/json"
 ```
 
 **Erklärung der Felder:**
@@ -137,4 +137,3 @@ Beide Endpunkte benötigen:
 
 ---
 
-© 2025 – Werbemittelmanager API Dokumentation

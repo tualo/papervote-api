@@ -1,0 +1,24 @@
+{
+  "name": "tualo/papervote-api",
+  "description": "tualo - papervote - api",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Hoffmann",
+      "email": "thomas.hoffmann@tualo.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tualo\\Office\\PaperVoteAPI\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "require": {
+    "tualo/papervote": "^2.0"
+  },
+  "version": "1.0.0"
+}

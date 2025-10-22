@@ -10,6 +10,6 @@ class Aliases implements IRoute
 {
     public static function register()
     {
-        Route::alias('/papervote-api/portrait/(?P<id>\w+)', '/votemanager/portrait/(?P<id>\w+)');
+        Route::alias('/papervote-api/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)', '/votemanager/portrait/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)');
     }
 }

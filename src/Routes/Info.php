@@ -25,18 +25,31 @@ class Info implements IRoute
             } else {
                 /**
                  * 
-                 create or replace view papervote_api_user_info as
+
+                create or replace view papervote_api_user_info as
                  select 
                     email user,
                     email,
                     vorname,
                     nachname,
-                    statement
-                from kandidaten
+                    statement statement1,
+                    statment2 statement2,
+                    statment3 statement3,
+
+                    concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', file_id) original_portrait_url,
+                    concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', cropped_file_id) cropped_portrait_url
+                from view_readtable_kandidaten
 
                  */
                 $info = DSTable::instance('papervote_api_user_info')->f('user', 'eq', $user)->getSingle();
                 if ($info) {
+                    unset($info['__table_name']);
+                    unset($info['__displayfield']);
+                    unset($info['__id']);
+                    unset($info['__rownumber']);
+
+
+
                     App::result('success', true);
                     App::result('info', $info);
                 }

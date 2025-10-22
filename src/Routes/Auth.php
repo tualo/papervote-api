@@ -15,6 +15,6 @@ class Auth implements IRoute
             App::contenttype('application/json');
             $user = API::ping();
             App::result('success', $user !== false);
-        }, ['get'], false);
+        }, ['get'], true);
     }
 }

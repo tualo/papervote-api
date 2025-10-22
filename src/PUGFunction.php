@@ -10,6 +10,7 @@ class PUGFunction implements IPUGFunction
 
     public static function register()
     {
+
         return [
             'pug_name' => 'papervoteAPIregister',
             'function' => self::fn()

@@ -9,7 +9,7 @@ use Tualo\Office\PaperVoteAPI\API;
 use Tualo\Office\Basic\RouteSecurityHelper;
 use Tualo\Office\DS\DSTable;
 
-class Auth implements IRoute
+class Info implements IRoute
 {
     public static function register()
     {

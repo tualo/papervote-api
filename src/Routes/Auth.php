@@ -12,6 +12,7 @@ class Auth implements IRoute
     public static function register()
     {
         BasicRoute::add('/papervote-api/ping', function ($matches) {
+            App::resetResult();
             App::contenttype('application/json');
             $user = API::ping();
             App::result('success', $user !== false);

@@ -14,6 +14,7 @@ class Info implements IRoute
     public static function register()
     {
         BasicRoute::add('/papervote-api/info', function ($matches) {
+            App::resetResult();
             App::contenttype('application/json');
             App::result('success', false);
             $db = App::get('session')->getDB();

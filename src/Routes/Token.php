@@ -17,6 +17,7 @@ class Download implements IRoute
         BasicRoute::add('/papervote-api-token-register', function () {
             $session = App::get('session');
             $section = 'papervote-api';
+            App::resetResult();
             $db = $session->getDB();
             try {
 
@@ -63,6 +64,7 @@ class Download implements IRoute
 
         BasicRoute::add('/papervote-api-token', function () {
             //$tablename = $matches['tablename'];
+            App::resetResult();
             $session = App::get('session');
             $section = 'papervote-api';
             $db = $session->getDB();

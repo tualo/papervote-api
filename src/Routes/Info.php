@@ -38,7 +38,8 @@ class Info implements IRoute
                     statment3 statement3,
 
                     concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', file_id) original_portrait_url,
-                    concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', cropped_file_id) cropped_portrait_url
+                    concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', cropped_file_id) cropped_portrait_url,
+                    bild_type mime_portrait_url
                 from view_readtable_kandidaten
 
                  */

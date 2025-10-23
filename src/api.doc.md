@@ -2,7 +2,7 @@
 
 ## 📘 Übersicht
 
-Diese API gehört zum **Werbemittelmanager** unter der Basis-URL:
+Diese API gehört zur **Werbemittelmanager-Anbindung** unter der Basis-URL:
 
 ```
 https://muenchen.wahl.software/wm/
@@ -76,6 +76,7 @@ GET https://muenchen.wahl.software/wm/papervote-api/info?api_key=<api_key>
 
 **Beschreibung:**
 Liefert detaillierte Informationen über den angemeldeten Benutzer und seine im System gespeicherten Daten.
+Auch beim Abrufen der Bild muss der Authorization Header mitgeliefert werden.
 
 **Rückgabe (Beispiel):**
 ```json
@@ -119,12 +120,12 @@ curl -X GET "https://muenchen.wahl.software/wm/papervote-api/info?api_key=abc123
 
 | Endpunkt | Methode | Zweck |
 |-----------|----------|-------|
-| `/papervote-api/ping?key=<key>` | GET | Prüft, ob ein Benutzer angemeldet ist |
-| `/papervote-api/info?key=<key>` | GET | Liefert Benutzerinformationen und Bild-URLs |
+| `/papervote-api/ping?api_key=<api_key>` | GET | Prüft, ob ein Benutzer angemeldet ist |
+| `/papervote-api/info?api_key=<api_key>` | GET | Liefert Benutzerinformationen und Bild-URLs |
 
 Beide Endpunkte benötigen:
 - einen gültigen `Authorization` Header  
-- den Parameter `key` in der URL
+- den Parameter `api_key` in der URL
 
 ---
 

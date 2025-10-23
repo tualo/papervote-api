@@ -26,6 +26,13 @@ class Download implements IRoute
                 if (is_null($keys)) {
                     $keys = ['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'];
                 }
+
+                if (CIDR::IPisWithinCIDR(
+                    CIDR::getIP($keys),
+                    explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14, 52.122.0.0/15'))
+                )) {
+                    throw new \Exception('Client IP ' . CIDR::getIP($keys) . ' not allowed');
+                }
                 $_REQUEST['device'] = CIDR::getIP($keys);
                 $token = $session->registerOAuth(
                     $force = true,
@@ -38,7 +45,7 @@ class Download implements IRoute
                 $session->oauthSingleUse($token);
 
                 App::result('token', $token);
-                App::result('url', './~/' . $token . '/papervote-api-token');
+                App::result('url', 'https://' . $_SERVER['SERVER_NAME'] . '/~/' . $token . '/papervote-api-token');
                 App::result('success', true);
 
                 $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
@@ -100,6 +107,7 @@ create table if not exists papervote_api_token_log (
                     'token' => $token,
                     'client_ip' => CIDR::getIP($keys),
                 ]);
+
 
                 App::result('token', $token);
                 App::result('success', true);

@@ -68,6 +68,11 @@ class Download implements IRoute
                     if (class_exists("\Tualo\Office\TualoPGP\TualoApplicationPGP") == false) throw new \Exception('TualoPGP not installed');
                 }
 
+                $keys =  json_decode(App::configuration($section, 'allowed_clientip_headers', "['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR']"), true);
+                if (is_null($keys)) {
+                    $keys = ['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'];
+                }
+
                 if (CIDR::IPisWithinCIDR(
                     CIDR::getIP($keys),
                     explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14 52.122.0.0/15 52.123.0.0/14'))
@@ -75,10 +80,7 @@ class Download implements IRoute
                     throw new \Exception('Client IP ' . CIDR::getIP($keys) . ' not allowed');
                 }
 
-                $keys =  json_decode(App::configuration($section, 'allowed_clientip_headers', "['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR']"), true);
-                if (is_null($keys)) {
-                    $keys = ['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'];
-                }
+
 
                 $_REQUEST['path'] = '/papervote-api/*';
                 $_REQUEST['name'] = 'papervote-download-client';

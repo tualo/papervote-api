@@ -41,7 +41,7 @@ class Download implements IRoute
                 App::result('url', './~/' . $token . '/papervote-api-token');
                 App::result('success', true);
 
-                $db->query("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
                     'id' => Uuid::uuid4()->toString(),
                     'key_id' => $_REQUEST['name'],
                     'token' => $token,
@@ -94,7 +94,7 @@ create table if not exists papervote_api_token_log (
     client_ip varchar(64)
 );
 */
-                $db->query("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
                     'id' => Uuid::uuid4()->toString(),
                     'key_id' => $_REQUEST['name'],
                     'token' => $token,

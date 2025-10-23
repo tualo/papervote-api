@@ -122,7 +122,9 @@ create table if not exists papervote_api_token_log (
                 App::result('token', $token);
                 App::result('success', true);
                 $session->destroy();
-                @session_destroy();
+                @session_regenerate_id(true);
+
+                // How can I provide the browser with a new session cookie here?
             } catch (\Exception $e) {
                 App::result('msg', $e->getMessage());
             }

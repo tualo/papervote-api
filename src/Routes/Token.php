@@ -30,7 +30,7 @@ class Download implements IRoute
 
                 if (CIDR::IPisWithinCIDR(
                     CIDR::getIP($keys),
-                    explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14, 52.122.0.0/15'))
+                    explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14 52.122.0.0/15 52.123.0.0/14'))
                 )) {
                     throw new \Exception('Client IP ' . CIDR::getIP($keys) . ' not allowed');
                 }

@@ -122,6 +122,7 @@ create table if not exists papervote_api_token_log (
                 App::result('token', $token);
                 App::result('success', true);
                 $session->destroy();
+                @session_destroy();
             } catch (\Exception $e) {
                 App::result('msg', $e->getMessage());
             }

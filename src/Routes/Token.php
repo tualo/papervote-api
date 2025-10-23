@@ -28,12 +28,7 @@ class Download implements IRoute
                     $keys = ['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR'];
                 }
 
-                if (CIDR::IPisWithinCIDR(
-                    CIDR::getIP($keys),
-                    explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14 52.122.0.0/15 52.123.0.0/14'))
-                )) {
-                    throw new \Exception('Client IP ' . CIDR::getIP($keys) . ' not allowed');
-                }
+
                 $_REQUEST['device'] = CIDR::getIP($keys);
                 $token = $session->registerOAuth(
                     $force = true,
@@ -71,6 +66,13 @@ class Download implements IRoute
             try {
                 if (($key = App::configuration('oauth', 'key')) !== false) {
                     if (class_exists("\Tualo\Office\TualoPGP\TualoApplicationPGP") == false) throw new \Exception('TualoPGP not installed');
+                }
+
+                if (CIDR::IPisWithinCIDR(
+                    CIDR::getIP($keys),
+                    explode(' ', App::configuration($section, 'disallowed_cidrs', '52.112.0.0/14 52.122.0.0/15 52.123.0.0/14'))
+                )) {
+                    throw new \Exception('Client IP ' . CIDR::getIP($keys) . ' not allowed');
                 }
 
                 $keys =  json_decode(App::configuration($section, 'allowed_clientip_headers', "['HTTP_X_DDOSPROXY', 'HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR']"), true);
@@ -117,6 +119,7 @@ create table if not exists papervote_api_token_log (
 
                 App::result('token', $token);
                 App::result('success', true);
+                $session->destroy();
             } catch (\Exception $e) {
                 App::result('msg', $e->getMessage());
             }

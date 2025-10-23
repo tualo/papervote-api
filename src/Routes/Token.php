@@ -48,10 +48,11 @@ class Download implements IRoute
                 App::result('url', 'https://' . $_SERVER['SERVER_NAME'] . '/~/' . $token . '/papervote-api-token');
                 App::result('success', true);
 
-                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, token_short, client_ip) VALUES ({id}, {key_id}, {token}, {token_short}, {client_ip})", [
                     'id' => Uuid::uuid4()->toString(),
                     'key_id' => $_REQUEST['name'],
                     'token' => $token,
+                    'token_short' => substr($token, 0, 36),
                     'client_ip' => CIDR::getIP($keys),
                 ]);
             } catch (\Exception $e) {
@@ -87,6 +88,7 @@ class Download implements IRoute
                     $device = isset($_REQUEST['device']) ? $_REQUEST['device'] : '',
                 );
                 $session->oauthValidDays($token, 365);
+                $token_short = $token;
                 if ($key !== false) {
 
                     // App::result('token_clean', $token);
@@ -101,12 +103,14 @@ create table if not exists papervote_api_token_log (
     client_ip varchar(64)
 );
 */
-                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, token_short, client_ip) VALUES ({id}, {key_id}, {token}, {token_short}, {client_ip})", [
                     'id' => Uuid::uuid4()->toString(),
                     'key_id' => $_REQUEST['name'],
                     'token' => $token,
+                    'token_short' => $token_short,
                     'client_ip' => CIDR::getIP($keys),
                 ]);
+
 
 
                 App::result('token', $token);

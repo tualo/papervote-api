@@ -45,7 +45,7 @@ class Download implements IRoute
                 $session->oauthSingleUse($token);
 
                 App::result('token', $token);
-                App::result('url', 'https://' . $_SERVER['SERVER_NAME'] . '/~/' . $token . '/papervote-api-token');
+                App::result('url', 'https://' . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . '/~/' . $token . '/papervote-api-token');
                 App::result('success', true);
 
                 $db->direct("INSERT INTO papervote_api_token_log (id, key_id, token, token_short, client_ip) VALUES ({id}, {key_id}, {token}, {token_short}, {client_ip})", [

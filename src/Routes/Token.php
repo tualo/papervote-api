@@ -17,6 +17,7 @@ class Download implements IRoute
         BasicRoute::add('/papervote-api-token-register', function () {
             $session = App::get('session');
             $section = 'papervote-api';
+            $db = $session->getDB();
             try {
 
                 $_REQUEST['path'] = '/papervote-api-token';
@@ -39,6 +40,13 @@ class Download implements IRoute
                 App::result('token', $token);
                 App::result('url', './~/' . $token . '/papervote-api-token');
                 App::result('success', true);
+
+                $db->query("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                    'id' => Uuid::uuid4()->toString(),
+                    'key_id' => $_REQUEST['name'],
+                    'token' => $token,
+                    'client_ip' => CIDR::getIP($keys),
+                ]);
             } catch (\Exception $e) {
                 App::result('msg', $e->getMessage());
             }
@@ -77,7 +85,21 @@ class Download implements IRoute
                     // App::result('token_clean', $token);
                     $token = base64_encode(\Tualo\Office\TualoPGP\TualoApplicationPGP::encrypt(file_get_contents($key), $token));
                 }
-
+                /*
+create table if not exists papervote_api_token_log (
+    id varchar(36) primary key,
+    created_at timestamp default current_timestamp,
+    key_id varchar(255),
+    token varchar(2048),
+    client_ip varchar(64)
+);
+*/
+                $db->query("INSERT INTO papervote_api_token_log (id, key_id, token, client_ip) VALUES ({id}, {key_id}, {token}, {client_ip})", [
+                    'id' => Uuid::uuid4()->toString(),
+                    'key_id' => $_REQUEST['name'],
+                    'token' => $token,
+                    'client_ip' => CIDR::getIP($keys),
+                ]);
 
                 App::result('token', $token);
                 App::result('success', true);

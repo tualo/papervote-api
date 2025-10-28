@@ -14,7 +14,7 @@ class Aliases implements IRoute
     public static function register()
     {
 
-        /*
+
         BasicRoute::add('/papervote-api/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)' . '', function ($matches) {
 
 
@@ -58,7 +58,7 @@ class Aliases implements IRoute
             BasicRoute::$finished = true;
             http_response_code(200);
         }, ['get'], false);
-        */
-        Route::alias('/papervote-api/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)', '/tualocms/page/votemanager/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)');
+
+        //Route::alias('/papervote-api/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)', '/tualocms/page/votemanager/(?P<type>[\/.\w\d\-\_\.]+)/(?P<id>[\/.\w\d\-\_\.]+)');
     }
 }

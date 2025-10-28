@@ -124,7 +124,8 @@ create table if not exists papervote_api_token_log (
                 $session->destroy();
                 @session_regenerate_id(true);
 
-                // How can I provide the browser with a new session cookie here?
+                // TODO: Provide a new session cookie to the browser if needed.
+                // See: https://www.php.net/manual/en/function.session-regenerate-id.php
             } catch (\Exception $e) {
                 App::result('msg', $e->getMessage());
             }

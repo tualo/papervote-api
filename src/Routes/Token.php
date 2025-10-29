@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 use Tualo\Office\DS\DSTable;
 use Tualo\Office\PUG\CIDR;
 
-class Download implements IRoute
+class Download extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

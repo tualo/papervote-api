@@ -9,7 +9,7 @@ use Tualo\Office\PaperVoteAPI\API;
 use Tualo\Office\Basic\RouteSecurityHelper;
 use Tualo\Office\DS\DSTable;
 
-class Info implements IRoute
+class Info extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function register()
     {
@@ -40,7 +40,9 @@ class Info implements IRoute
                     concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', file_id) original_portrait_url,
                     concat('https://muenchen.wahl.software/wm/papervote-api/portrait/', cropped_file_id) cropped_portrait_url,
                     bild_type mime_portrait_url
-                from view_readtable_kandidaten
+                from 
+                    view_readtable_kandidaten
+                where stimmzettelgruppen = 0
 
                  */
                 $info = DSTable::instance('papervote_api_user_info')->f('user', 'eq', $user)->getSingle();
